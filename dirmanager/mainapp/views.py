@@ -5,17 +5,20 @@ from datetime import datetime
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from drf_spectacular.utils import extend_schema_view, extend_schema
 from .serializers import FileSerializer
 from .models import File
 from django.db.models import Q
 
 
+@extend_schema(description='Get all files from db', responses=FileSerializer(many=True))
 @api_view(['GET'])
 def files_api(request):
     files = File.objects.all()
     serializer = FileSerializer(files, many=True)
     return Response(serializer.data)
 
+@extend_schema(description='Get filtered files. Example filter: name:sample crtd:2023/11/27+ ext:d', responses=FileSerializer(many=True))
 @api_view(['GET'])
 def filtered_files_api(request):
     filter_str = request.GET.get('filter', '')
@@ -58,6 +61,7 @@ def filtered_files_api(request):
     serializer = FileSerializer(files, many=True)
     return Response(serializer.data)
 
+@extend_schema(description='Fill database with info from files examples')
 @api_view(['GET'])
 def fill_db_api(request):
     fill_db()

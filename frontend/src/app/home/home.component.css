@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 13px;
+}
+
+mat-form-field {
+  margin-right: 10px;
+  width: 300px;
+}
+

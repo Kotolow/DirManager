@@ -1,0 +1,25 @@
+<div style="padding: 13px;">
+    <mat-form-field class="example-form-field">
+      <mat-label>Enter filter</mat-label>
+      <input matInput type="text" [(ngModel)]="filterValue">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="applyFilter()">Apply Filter</button>
+
+    <mat-spinner *ngIf="files.length === 0"></mat-spinner>
+
+    <mat-card *ngFor="let file of files" style="margin-top:12px;">
+        <mat-card-header>
+            <mat-card-title>{{file.name}}</mat-card-title>
+            <mat-card-subtitle>{{file.size}} bytes, Created: {{file.created_at}}, Modified: {{file.modified_at}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <p>
+                Path: {{file.path}}
+            </p>
+            <p>
+                Extension: {{file.ext}}
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>
